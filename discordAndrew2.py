@@ -63,108 +63,47 @@ async def on_message(message):
 
     await bot.process_commands(message)
 
+# Function to play a clip in the voice channel of the caller 
+async def playAudio(ctx, audioFile):
+    voice = ctx.voice_client
+    if voice == None:
+        # If not connected, then we connect to the voice channel of the caller
+        print("not connected")
+        voice = await ctx.author.voice.channel.connect()
+    else:
+        # If we are already connected, then no action is required
+        print("already connected")
+
+    voice.play(discord.FFmpegPCMAudio(executable= PATH_TO_FFMPEG, source= PATH_TO_AUDIO + audioFile))
+    # Sleep while audio is playing
+    while voice.is_playing():
+        time.sleep(.1)
+
 # Plays meme/anime/in-joke clips in the voice channel
 @bot.command()
 async def hi(ctx):
-
-    voice = ctx.voice_client
-    if voice == None:
-        # If not connected, then we connect to the voice channel of the caller
-        print("not connected")
-        voice = await ctx.author.voice.channel.connect()
-    else:
-        # If we are already connected, then no action is required
-        print("already connected")
-
-    voice.play(discord.FFmpegPCMAudio(executable= PATH_TO_FFMPEG, source= PATH_TO_AUDIO + "/hi.mp3"))
-    # Sleep while audio is playing
-    while voice.is_playing():
-        time.sleep(.1)
+    await playAudio(ctx, "/hi.mp3")
 
 @bot.command()
 async def skr(ctx):
-
-    voice = ctx.voice_client
-    if voice == None:
-        # If not connected, then we connect to the voice channel of the caller
-        print("not connected")
-        voice = await ctx.author.voice.channel.connect()
-    else:
-        # If we are already connected, then no action is required
-        print("already connected")
-
-    voice.play(discord.FFmpegPCMAudio(executable= PATH_TO_FFMPEG, source= PATH_TO_AUDIO + "/skr.mp3"))
-    # Sleep while audio is playing
-    while voice.is_playing():
-        time.sleep(.1)
+    await playAudio(ctx, "/skr.mp3")
 
 @bot.command()
 async def no(ctx):
-
-    voice = ctx.voice_client
-    if voice == None:
-        # If not connected, then we connect to the voice channel of the caller
-        print("not connected")
-        voice = await ctx.author.voice.channel.connect()
-    else:
-        # If we are already connected, then no action is required
-        print("already connected")
-
-    voice.play(discord.FFmpegPCMAudio(executable= PATH_TO_FFMPEG, source= PATH_TO_AUDIO + "/no.mp3"))
-    # Sleep while audio is playing
-    while voice.is_playing():
-        time.sleep(.1)
+    await playAudio(ctx, "/no.mp3")
 
 @bot.command()
 async def really(ctx):
-    voice = ctx.voice_client
-    if voice == None:
-        # If not connected, then we connect to the voice channel of the caller
-        print("not connected")
-        voice = await ctx.author.voice.channel.connect()
-    else:
-        # If we are already connected, then no action is required
-        print("already connected")
-
-    voice.play(discord.FFmpegPCMAudio(executable= PATH_TO_FFMPEG, source= PATH_TO_AUDIO + "/really.mp3"))
-    # Sleep while audio is playing
-    while voice.is_playing():
-        time.sleep(.1)
+    await playAudio(ctx, "/really.mp3")
 
 # Plays Uncle Roger's two catchphrases
 @bot.command()
 async def haiyaa(ctx):
-
-    voice = ctx.voice_client
-    if voice == None:
-        # If not connected, then we connect to the voice channel of the caller
-        print("not connected")
-        voice = await ctx.author.voice.channel.connect()
-    else:
-        # If we are already connected, then no action is required
-        print("already connected")
-
-    voice.play(discord.FFmpegPCMAudio(executable= PATH_TO_FFMPEG, source= PATH_TO_AUDIO + "/haiyaa.mp3"))
-    # Sleep while audio is playing
-    while voice.is_playing():
-        time.sleep(.1)
+    await playAudio(ctx, "/haiyaa.mp3")
 
 @bot.command()
 async def fuiyoh(ctx):
-
-    voice = ctx.voice_client
-    if voice == None:
-        # If not connected, then we connect to the voice channel of the caller
-        print("not connected")
-        voice = await ctx.author.voice.channel.connect()
-    else:
-        # If we are already connected, then no action is required
-        print("already connected")
-
-    voice.play(discord.FFmpegPCMAudio(executable= PATH_TO_FFMPEG, source= PATH_TO_AUDIO + "/fuiyoh.mp3"))
-    # Sleep while audio is playing
-    while voice.is_playing():
-        time.sleep(.1)
+    await playAudio(ctx, "/fuiyoh.mp3")
 
 # Gets a random message from a selected text channel
 @bot.command()
